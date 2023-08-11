@@ -10,7 +10,7 @@ def login(request):
 	return HttpResponse('placeholder for users to login')
 
 def new(request):
-	return redirect("user/register/")
+	return redirect("/user/register/")
 
 def users(request):
 	return HttpResponse("place holder to later display all the list of users")
