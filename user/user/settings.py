@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'apps.first_app',
     'apps.school_student',
     'apps.books_authors',
-    'apps.likes',   
+    'apps.likes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
