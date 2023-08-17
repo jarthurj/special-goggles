@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	{% load static %}
+</head>
+<body>
+	<form action="/add_course/" method="post">
+
+		{% csrf_token %}
+		{{form}}
+		<button type="submit">SUBMIT</button>
+	</form>
+	<table>
+		<tr>
+			<th>Course Name</th>
+			<th>Description</th>
+			<th>Date Added</th>
+			<th>Actions</th>
+			<th>ID</th>
+		</tr>
+		{% for course in courses %}
+			<tr>
+			<td>{{course.name}}</td>
+			<td>{{course.desc.description}}</td>
+			<td>{{course.created_at}}</td>
+			<td>{{course.desc.id}}</td>
+			<td><a href="/destroy/{{course.id}}/">Delete</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>
