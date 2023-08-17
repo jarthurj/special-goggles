@@ -3,12 +3,15 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../../static/users.css">
 	<title></title>
 	{% load static %}
 </head>
 <body>
+
 	<h1>Users</h1>
-	<table>
+		<a href="/users/new/">Add New User</a>
+	<table class="center">
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
@@ -28,6 +31,6 @@
 			</tr>
 		{% endfor %}
 	</table>
-	<a href="/users/new/">Add New User</a>
+
 </body>
 </html>
