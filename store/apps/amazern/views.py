@@ -26,3 +26,6 @@ def thanks(request):
 		'sesh':request.session,
 	}
 	return render(request, "amazern/thanks.html", context)
+
+
+	https://www.tcgplayer.com/search/magic/product?productLineName=magic&q=Darksteel+Myr&view=grid&page=1
