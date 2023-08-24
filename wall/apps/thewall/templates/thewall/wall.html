@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	<h2>Post a Message:</h2>
+	<a href='/'>LOGOUT</a>
+	{% for m in messages %}
+		{{m}}
+	{% endfor %}
+	<form action="/add_post/" method="post">
+		{% csrf_token %}
+		{{post_form}}
+		<input type="submit" value="ADD POST"/>
+	</form>
+	<hr>
+
+	{% for p in posts %}
+		<p>{{p.user.first_name}} {{p.user.last_name}}-{{p.updated_at}}</p>
+		<p>{{p.post_text}}</p>
+		{% if request.session.user == p.user.id %}
+			<form action="/del_comment/" method="get">
+			{% csrf_token %}
+			<input type="submit" value="DELETE"/>
+			<input type="hidden" value="{{p.user.id}}" name="user_id"/>
+			<input type="hidden" value="{{p.id}}" name="post_id"/>
+			</form>
+
+		{% endif %}
+		<div style="margin-left:50px">
+		{% for c in p.post_comments.all %}
+			<p>{{c.user.first_name}} {{c.user.last_name}}-{{c.updated_at}}</p>
+			<p>{{c.comment_text}}</p>
+		{% endfor %}
+		<form action="/add_comment/" method="post">
+			{% csrf_token %}
+			{{comment_form}}
+			<input type="hidden" value="{{p.id}}" name="post_id"/>
+			<input type="submit" value="ADD COMMENT"/>
+		</form>
+		</div>
+	{% endfor %}
+</body>
+</html>

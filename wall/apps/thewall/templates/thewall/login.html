@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+	{% for m in messages %}
+		{{m}}
+	{% endfor %}
+	<form action='/register/' method="post">
+		{% csrf_token %}
+		{{regForm.as_p}}
+		<input type="submit" value="Register"/>
+	</form>
+	<form action='/login_user/' method="post">
+		{% csrf_token %}
+		{{loginForm.as_p}}
+		<input type="submit" value="Login"/>
+	</form>
+</body>
+</html>
