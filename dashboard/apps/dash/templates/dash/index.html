@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+  {% load static %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="../../static/reset.css">
-  <link rel="stylesheet" type="text.css" href=""
+  <link rel="stylesheet" type="text/css" href="../../static/index.css">
   <title>Home Page</title>
 </head>
 <body>
   <div>
     <div>
       <ul>
-        <li>Test Page</li>
-        <li><a href="#"></a></li>
-        <li><a href="/login/">Sign In</a></li>
+        <li><h3>Test Page</h3></li>
+        <li><a href="#">Home</a></li>
+        <li class="signin"><a href="/login/">Sign In</a></li>
       </ul>
-        <div>
+      <div id="wrapper">
+        <div id="splash">
           <h1>Welcome</h1>
-          <p>We're going to build a cool application using a MVC framework</p>
+          <p>We're going to build a cool application using a MVC framework.</p>
           <button>Start</button>
         </div>
-        <div>
-          <div>
+        <div id="card-holder">
+          <div class="card">
               <h2>Manage Users</h2>
               <p>Using this application, you'll learn how to add, remove, and edit users for the applicaiton. </p>
           </div>
-          <div>
+          <div class="card">
               <h2>Leave Messages</h2>
               <p>Users will be able to leave a message to another user using this applications.</p>
           </div>
-          <div>
+          <div class="card">
               <h2>Edit User Information</h2>
               <p>Admins will be able to edit another user's information (email, name, etc.)</p>
           </div>
-
         </div>
+      </div>
     </div>
   </div>
 </body>

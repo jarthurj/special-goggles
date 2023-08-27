@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="../../static/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../static/login.css">
+  <title>Home Page</title>
+</head>
+<body>
+  <div>
+      <ul>
+        <li><h3>Test Page</h3></li>
+        <li><a href="#">Home</a></li>
+        <li class="signin"><a href="/login/">Sign In</a></li>
+      </ul>
+      <div id="wrapper">
+        <h1>Login</h1>
+        <form action="login" method="pull">
+          {% csrf_token %}
+          <label for="email">Email:</label>
+          <input type="email" name="email"/>
+          <label for="pw">Password:</label>
+          <input type="password" name="pw"/>
+          <button type="submit">Login</button>
+        </form>
+        <a href="/register/">Register</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

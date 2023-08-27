@@ -24,39 +24,31 @@ h3{
 h1{
 	font-size:36px;
 	font-weight:bold;
+	margin:10px;
 }
 
 #wrapper{
 	margin:100px auto;
 	width:70%;
 	font-family:sans-serif;
-}
-
-#splash{
-	background-color: #dddddd;
-	padding:70px;
-}
-
-#splash p{
-	margin-top:20px;
-	margin-bottom:20px;
-}
-#card-holder{
-	margin:50px 0px;
-	display:flex;
-	justify-content: space-between;
 /*	border: solid 1px black;*/
-	width:100%;
+
+}
+form{
+	float:left;
+/*	border: solid 1px black;*/
+	width: 40%;
+/*	display:block;*/
 }
 
-.card h2{
-	font-size:20px;
-	margin:10px 0px;
-	font-weight: bold;
+input{
+	display:block;
+	margin:10px;
+	width:80%;
 }
-.card{
-	width:30%;
-/*	border: solid 1px black;*/
+
+label{
+	margin:10px;
 }
 
 button{
@@ -64,17 +56,17 @@ button{
 	color: white;
 	padding:5px 10px;
 	border:solid 2px blue;
+	float:right;
 }
 
 @media screen and (max-width:480px){
-	#splash{
-		padding:10px;
+	#wrapper{
+		width:100%;
 	}
-	.card h2{
-		font-size:13px;
-/*		margin:10px 0px;*/
+	form{
+		width:80%;
 	}
-	.card p{
-		font-size:12px;
+	input{
+		width: 100%;
 	}
 }
