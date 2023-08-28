@@ -75,8 +75,10 @@ def login_user(request):
 		return redirect('/index/')
 
 def add_post(request):
-	for x,y in request.POST.items():
-		print(x,y)
+	print('ass')
+	for key,value in request.POST.items():
+		print(key,value)
+	print('ass')
 	post_text = request.POST['post_text']
 
 	Post.objects.create(post_text=post_text,user=User.objects.get(id=request.session['user']))
