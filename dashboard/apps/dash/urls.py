@@ -1,3 +1,4 @@
+
 """
 URL configuration for dashboard project.
 
@@ -18,14 +19,17 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('index/', views.index, name="index"),
     path('login/', views.login, name="login"),
     path('register/', views.register, name="register"),
     path('admin/', views.admin, name="admin"),
     path('dashboard/', views.dashboard, name="dashboard"),
-    path('show/', views.show, name="show"),
+    path('show/<int:uid>', views.show, name="show"),
     path('edit/', views.edit, name="edit"),
     path('admin_edit/', views.admin_edit, name="admin_edit"),
     path('register_user/', views.register_user, name="register_user"),
+    path('login_user/', views.login_user, name="login_user"),
+    path('add_post/', views.add_post, name="add_post"),
+
 
 ]

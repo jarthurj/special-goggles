@@ -13,11 +13,11 @@
     <div>
       <ul>
         <li><h3>Test Page</h3></li>
-        <li><a href="#">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li class="signin"><a href="/login/">Sign In</a></li>
       </ul>
       <div id="wrapper">
-        <form action="/register/" method="post">
+        <form action="/register_user/" method="post">
           {% csrf_token %}
           <label for="email">Email:</label>
           <input type="email" name="email"/>
@@ -27,11 +27,9 @@
           <input type="text" name="last_name"/>
           <label for="pw">Password:</label>
           <input type="password" name="pw"/>
-          <label for="pw">Confirm Password:</label>
-          <input type="password" name="pw"/>
-          <button type="submit">Login</button>
-          <a class="reg" href="/register/">Register</a>
-
+          <label for="pw_confirm">Confirm Password:</label>
+          <input type="password" name="pw_confirm"/>
+          <button type="submit">Register</button>
         </form>
 
       </div>

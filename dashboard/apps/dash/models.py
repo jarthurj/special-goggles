@@ -3,15 +3,15 @@ import re
 import datetime
 import pytz
 class UserManager(models.Manager):
-	def birthday_valid(birthday):
-		today = datetime.datetime.now()
-		verify_year = datetime.datetime(year=today.year-13,month=today.month, day=today.day)
-		if (birthday.year <=verify_year.year and
-			birthday.month <= verify_year.month and
-			birthday.day <= verify_year.day):
-			return True
-		else:
-			return False
+	# def birthday_valid(birthday):
+	# 	today = datetime.datetime.now()
+	# 	verify_year = datetime.datetime(year=today.year-13,month=today.month, day=today.day)
+	# 	if (birthday.year <=verify_year.year and
+	# 		birthday.month <= verify_year.month and
+	# 		birthday.day <= verify_year.day):
+	# 		return True
+	# 	else:
+	# 		return False
 	def reg_validator(self, postData):
 		errors = {}
 		regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
@@ -35,19 +35,28 @@ class UserManager(models.Manager):
 		if User.objects.filter(email=postData['email']):
 			errors['user'] = 'User already exists.'
 
-		d = datetime.datetime(year=int(postData['birthday_year']),
-								month=int(postData['birthday_month']),
-								day=int(postData['birthday_day']))
+		# d = datetime.datetime(year=int(postData['birthday_year']),
+		# 						month=int(postData['birthday_month']),
+		# 						day=int(postData['birthday_day']))
 
-		if not UserManager.birthday_valid(d):
-			errors['age'] = 'You are less than 13 years old'
+		# if not UserManager.birthday_valid(d):
+		# 	errors['age'] = 'You are less than 13 years old'
 		return errors
+
+	def get_user_level(self):
+		if len(User.objects.all())==0:
+			return 9
+		else:
+			return 0
 class User(models.Model):
 	first_name = models.CharField(max_length=50)
 	last_name = models.CharField(max_length=50)
 	email = models.EmailField()
 	pw = models.CharField(max_length=100)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
 	birthday = models.DateTimeField()
+	user_level = models.IntegerField()
 	objects = UserManager()
 
 class PostManager(models.Manager):

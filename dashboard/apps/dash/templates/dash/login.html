@@ -17,7 +17,7 @@
       </ul>
       <div id="wrapper">
         <h1>Login</h1>
-        <form action="login" method="pull">
+        <form action="/login_user/" method="post">
           {% csrf_token %}
           <label for="email">Email:</label>
           <input type="email" name="email"/>

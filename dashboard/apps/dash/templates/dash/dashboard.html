@@ -30,11 +30,11 @@
           </tr>
           {% for u in users%}
             <tr>
-              <td>u.id</td>
-              <td>u.first_name u.last_name</td>
-              <td>u.email</td>
-              <td>u.created_at</td>
-              <td>u.user_level</td>
+              <td>{{u.id}}</td>
+              <td><a href="/show/{{u.id}}">{{u.first_name}} {{u.last_name}}</a></td>
+              <td>{{u.email}}</td>
+              <td>{{u.created_at}}</td>
+              <td>{{u.user_level}}</td>
             </tr>
           {% endfor %}
         </table>

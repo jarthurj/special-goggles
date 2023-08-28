@@ -14,7 +14,6 @@
       <ul>
         <li><h3>Test Page</h3></li>
         <li><a href="#">Home</a></li>
-        <li class="signin"><a href="/login/">Sign In</a></li>
       </ul>
       <div id="wrapper">
         <div id="user-info">
@@ -26,8 +25,9 @@
         </div>
         <div id="comments">
           <h2>Leave a message for {{user.first_name}}</h2>
-          <form action="post_message" action="post">
-            <input type="text" name="message"/>
+          <form action="/add_post/" action="post">
+            <input type="text" name="post_text"/>
+            <button type="submit">Post</button>
           </form>
           {% for p in posts %}
             <p>{{p.user.first_name}} {{p.user.last_name}} wrote:</p>
