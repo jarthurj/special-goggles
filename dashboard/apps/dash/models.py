@@ -43,6 +43,34 @@ class UserManager(models.Manager):
 		# 	errors['age'] = 'You are less than 13 years old'
 		return errors
 
+	def user_validator(self, postData):
+		errors = {}
+		regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+		if len(postData['first_name'])<2:
+			errors['first_name'] = "First name must be 2 characters or longer."
+		if len(postData['last_name'])<2:
+			errors['last_name'] = "Last name must be 2 characters or longer."
+		for c in postData['first_name']:
+			if ord(c.lower()) < 97 or ord(c.lower())>122:
+				errors['alphabet'] = "Names can only contain letters."
+		if 'alphabet' not in errors:
+			for c in postData['last_name']:
+				if ord(c.lower()) < 97 or ord(c.lower())>122:
+					errors['alphabet'] = "Names can only contain letters."
+		if not re.fullmatch(regex, postData['email']):
+			errors['email'] = "Email not valid."
+		if User.objects.filter(email=postData['email']):
+			errors['user'] = 'User already exists.'
+		return errors
+
+	def pw_validator(self, postData):
+		errors = {}
+		if postData['pw'] != postData['pw_confirm']:
+			errors['pw_mismatch'] = "Passwords don't match."
+		if len(postData['pw'])<8:
+			errors['pw_length'] = "Password too short."
+		return errors
+		
 	def get_user_level(self):
 		if len(User.objects.all())==0:
 			return 9

@@ -9,9 +9,7 @@ def index(request):
 
 def login(request):
 	request.session.flush()
-	context={
-	}
-	return render(request, "dash/login.html",context)
+	return render(request, "dash/login.html")
 
 def register(request):
 	return render(request, "dash/register.html")
@@ -33,10 +31,15 @@ def show(request, uid):
 	return render(request, "dash/show.html", context)
 
 def edit(request):
-	return render(request, "dash/edit.html")
+	context = {
+		'user':User.objects.get(id=request.session['user'])
+	}
+	return render(request, "dash/edit.html", context)
 
 def admin_edit(request):
 	return render(request, "dash/admin_edit")
+
+
 
 
 #method for registering user.
@@ -63,8 +66,6 @@ def register_user(request):
 def login_user(request):
 	user = User.objects.filter(email=request.POST['email'])
 	if len(user)==1:
-		print(user[0].pw.encode('utf-8'))
-		print(bcrypt.hashpw(request.POST['pw'].encode('utf-8'),bcrypt.gensalt()))
 		pw_good = bcrypt.checkpw(request.POST['pw'].encode(), user[0].pw.encode())
 		if pw_good:
 			request.session['user'] = user[0].id
@@ -90,3 +91,32 @@ def add_comment(request):
 							post=Post.objects.get(id=request.POST['post_id']),
 							user=User.objects.get(id=request.session['user']))
 	return redirect('/dashboard/')
+
+def edit_pw(request):
+	errors = User.objects.pw_validator(request.POST)
+	if errors:
+		for key, value in errors.items():
+			messages.error(request, value)
+		return redirect('/edit/')
+	else:
+		pw = bcrypt.hashpw(request.POST['pw'].encode(),bcrypt.gensalt()).decode()
+		u = User.objects.get(id=request.session['user'])
+		u.pw = pw
+		u.save()
+		messages.success(request, "Registration Successful")
+		return redirect('/edit/')
+
+def edit_user(request):
+	errors = User.objects.user_validator(request.POST)
+	if errors:
+		for key, value in errors.items():
+			messages.error(request, value)
+		return redirect('/edit/')
+	else:
+		u = User.objects.get(id=request.session['user'])
+		u.first_name = request.POST['first_name']
+		u.last_name = request.POST['last_name']
+		u.email = request.POST['email']
+		u.save()
+		messages.success(request, "Registration Successful")
+		return redirect('/edit/')

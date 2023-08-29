@@ -31,6 +31,8 @@ urlpatterns = [
     path('login_user/', views.login_user, name="login_user"),
     path('add_post/', views.add_post, name="add_post"),
     path('add_comment/', views.add_comment, name="add_comment"),
+    path('edit_pw/', views.edit_pw, name="edit_pw"),
+    path('edit_user/', views.edit_user, name="edit_user")
 
 
 ]

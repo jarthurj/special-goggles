@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="../../static/reset.css">
-  <link rel="stylesheet" type="text/css" href="../../static/edits.css">
+  <link rel="stylesheet" type="text/css" href="../../static/edit.css">
   <title>Home Page</title>
 </head>
 <body>
@@ -13,19 +13,26 @@
     <div>
       <ul>
         <li><h3>Test Page</h3></li>
-        <li><a href="#">Home</a></li>
+        <li><a href="/index/">Home</a></li>
         <li class="signin"><a href="/login/">Sign In</a></li>
       </ul>
       <div id="wrapper">
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
         <h1>Edit Profile</h1>
         <form action="/edit_user/" method="post">
           {% csrf_token %}
           <label for="email">Email:</label>
-          <input type="email" name="email"/>
+          <input type="email" name="email" value="{{user.email}}"/>
           <label for="first_name">First Name:</label>
-          <input type="text" name="first_name"/>
+          <input type="text" name="first_name" value="{{user.first_name}}"/>
           <label for="last_name">Last Name:</label>
-          <input type="text" name="last_name"/>
+          <input type="text" name="last_name" value="{{user.last_name}}"/>
           <button type="submit">Save</button>
         </form>
 
@@ -39,7 +46,7 @@
         </form>
           <form action="/edit_pw/" method="post">
           {% csrf_token %}
-          <label for="description">Password:</label>
+          <label for="description">Description:</label>
           <textarea name="description"></textarea>
           <button type="submit">Save</button>
         </form>
