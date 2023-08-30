@@ -19,13 +19,16 @@ def admin(request):
 
 def dashboard(request):
 	context = {
-		'users': User.objects.all()
+		'users': User.objects.all(),
+		'user_first_name': User.objects.get(id=request.session['user']).first_name
 	}
-	return render(request, "dash/dashboard.html", context)
-
+	if User.objects.get(id=request.session['user']).user_level==0:
+		return render(request, "dash/dashboard.html", context)
+	else:
+		return render(request, "dash/admin-dashboard.html", context)
 def show(request, uid):
 	context={
-		"posts":Post.objects.filter(user=User.objects.get(id=uid)),
+		"posts":Post.objects.filter(post_user=User.objects.get(id=uid)),
 		"user":User.objects.get(id=uid),
 	}
 	return render(request, "dash/show.html", context)
@@ -36,8 +39,12 @@ def edit(request):
 	}
 	return render(request, "dash/edit.html", context)
 
-def admin_edit(request):
-	return render(request, "dash/admin_edit")
+def admin_edit(request, uid):
+	context = {
+		'user':User.objects.get(id=uid),
+	}
+
+	return render(request, "dash/admin_edit.html",context)
 
 
 
@@ -76,21 +83,20 @@ def login_user(request):
 		return redirect('/index/')
 
 def add_post(request):
-	print('ass')
 	for key,value in request.POST.items():
 		print(key,value)
-	print('ass')
 	post_text = request.POST['post_text']
-
-	Post.objects.create(post_text=post_text,user=User.objects.get(id=request.session['user']))
-	return redirect('/dashboard/')
+	Post.objects.create(post_text=post_text,
+						user=User.objects.get(id=request.session['user']),
+						post_user=User.objects.get(id=int(request.POST['post_user'])))
+	return redirect('show', uid=int(request.POST['post_user']))
 
 def add_comment(request):
 	comment_text = request.POST['comment_text']
-	Comment.objects.create(comment_text=comment_text,
+	c = Comment.objects.create(comment_text=comment_text,
 							post=Post.objects.get(id=request.POST['post_id']),
 							user=User.objects.get(id=request.session['user']))
-	return redirect('/dashboard/')
+	return redirect('show', uid=c.post.post_user.id)
 
 def edit_pw(request):
 	errors = User.objects.pw_validator(request.POST)
@@ -120,3 +126,40 @@ def edit_user(request):
 		u.save()
 		messages.success(request, "Registration Successful")
 		return redirect('/edit/')
+
+def admin_edit_user(request):
+	print('asssssssssssssssssss')
+	for key, value in request.POST.items():
+			print(key, value)
+	errors = User.objects.user_validator(request.POST)
+	if errors:
+		for key, value in errors.items():
+			messages.error(request, value)
+		return redirect('admin_edit', uid=request.POST['id'])
+	else:
+		u = User.objects.get(id=request.POST['id'])
+		u.first_name = request.POST['first_name']
+		u.last_name = request.POST['last_name']
+		u.email = request.POST['email']
+		u.save()
+		messages.success(request, "User Info Update Successful")
+		return redirect('admin_edit',uid=request.POST['id'])
+
+
+def admin_edit_password(request):
+	errors = User.objects.pw_validator(request.POST)
+	if errors:
+		for key, value in errors.items():
+			messages.error(request, value)
+		return redirect('admin_edit', uid=request.POST['id'])
+	else:
+		pw = bcrypt.hashpw(request.POST['pw'].encode(),bcrypt.gensalt()).decode()
+		u = User.objects.get(id=request.POST['id'])
+		u.pw = pw
+		u.save()
+		messages.success(request, "Password Change Successful")
+		return redirect('admin_edit', uid=request.POST['id'])
+def delete_user(request,uid):
+	u=User.objects.get(id=uid)
+	u.delete()
+	return redirect('/dashboard/')

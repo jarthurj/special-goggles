@@ -13,10 +13,17 @@
     <div>
       <ul>
         <li><h3>Test Page</h3></li>
-        <li><a href="#">Home</a></li>
+        <li><a href="/index/">Home</a></li>
         <li class="signin"><a href="/login/">Sign In</a></li>
       </ul>
       <div id="wrapper">
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
         <div id="splash">
           <h1>Welcome</h1>
           <p>We're going to build a cool application using a MVC framework.</p>

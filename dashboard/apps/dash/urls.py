@@ -32,7 +32,11 @@ urlpatterns = [
     path('add_post/', views.add_post, name="add_post"),
     path('add_comment/', views.add_comment, name="add_comment"),
     path('edit_pw/', views.edit_pw, name="edit_pw"),
-    path('edit_user/', views.edit_user, name="edit_user")
+    path('edit_user/', views.edit_user, name="edit_user"),
+    path('admin_edit_user/', views.admin_edit_user, name="admin_edit_user"),
+    path('admin_edit/<int:uid>/', views.admin_edit, name="admin_edit"),
+    path('admin_edit_password/', views.admin_edit_password, name="admin_password"),
+    path('delete/<int:uid>/', views.delete_user, name="delete"),
 
 
 ]

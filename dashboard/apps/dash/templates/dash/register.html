@@ -17,6 +17,13 @@
         <li class="signin"><a href="/login/">Sign In</a></li>
       </ul>
       <div id="wrapper">
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
         <form action="/register_user/" method="post">
           {% csrf_token %}
           <label for="email">Email:</label>

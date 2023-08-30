@@ -13,7 +13,8 @@
     <div>
       <ul>
         <li><h3>Test Page</h3></li>
-        <li><a href="#">Home</a></li>
+        <li><a href="/index/">Home</a></li>
+        <li><a href="/dashboard/">Dashboard</a></li>
       </ul>
       <div id="wrapper">
         <div id="user-info">
@@ -28,6 +29,7 @@
           <form action="/add_post/" method="post">
             {% csrf_token %}
             <input type="text" name="post_text"/>
+            <input type="hidden" name="post_user" value="{{user.id}}"/>
             <button type="submit">Post</button>
           </form>
           {% for p in posts %}

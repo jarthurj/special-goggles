@@ -100,7 +100,8 @@ class Post(models.Model):
 	post_text = models.TextField()
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
-	user = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
+	user = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)#posts by user
+	post_user = models.ForeignKey(User, related_name="user_posts", on_delete=models.CASCADE)#POSTS FOR USER
 	objects = PostManager()
 
 class Comment(models.Model):

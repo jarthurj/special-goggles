@@ -28,6 +28,7 @@
             <th>Email</th>
             <th>created_at</th>
             <th>user_level</th>
+            <th>Action</th>
           </tr>
           {% for u in users%}
             <tr>
@@ -36,6 +37,7 @@
               <td>{{u.email}}</td>
               <td>{{u.created_at}}</td>
               <td>{{u.user_level}}</td>
+              <td><a href="/admin_edit/{{u.id}}/">Edit</a> <a href="/delete/{{u.id}}/">Delete</a></td>
             </tr>
           {% endfor %}
         </table>
