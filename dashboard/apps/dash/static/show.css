@@ -10,8 +10,6 @@ li{
 	display:inline;
 }
 
-
-
 h3{
 	display:inline;
 	font-size: 24px;
@@ -24,57 +22,56 @@ h3{
 h1{
 	font-size:36px;
 	font-weight:bold;
+	margin-bottom: 20px;
+}
+
+/*.comment{
+	margin-left:100px;
+	border:black solid 1px;
+	float:right;
+}*/
+#comment{
+	margin-left:100px;
+/*	float:right;*/
+/*	width:70%;*/
 }
 
 #wrapper{
 	margin:100px auto;
 	width:70%;
 	font-family:sans-serif;
+/*	border:black solid 1px;*/
 }
 
-#splash{
-	background-color: #dddddd;
-	padding:70px;
+input{
+	width:600px;
+/*	border:black solid 1px;*/
 }
-
-#splash p{
-	margin-top:20px;
-	margin-bottom:20px;
-}
-#card-holder{
-	margin:50px 0px;
-	display:flex;
-	justify-content: space-between;
-/*	border: solid 1px black;*/
-	width:100%;
-}
-
-.card h2{
-	font-size:20px;
-	margin:10px 0px;
-	font-weight: bold;
-}
-.card{
-	width:30%;
-/*	border: solid 1px black;*/
-}
-
 button{
 	background-color:blue;
 	color: white;
 	padding:5px 10px;
 	border:solid 2px blue;
+	display:block;
 }
 
-@media screen and (max-width:480px){
-	#splash{
-		padding:10px;
-	}
-	.card h2{
-		font-size:13px;
-/*		margin:10px 0px;*/
-	}
-	.card p{
-		font-size:12px;
-	}
+form{
+/*	border:black solid 1px;*/
+}
+
+
+
+p{
+	margin-bottom: 5px;
+}
+
+@media screen and (max-width:750px){
+input{
+	width:200px;
+/*	border:black solid 1px;*/
+}
+#comment{
+	margin-left:0px;
+}
+
 }

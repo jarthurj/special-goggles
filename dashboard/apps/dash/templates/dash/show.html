@@ -18,13 +18,12 @@
       </ul>
       <div id="wrapper">
         <div id="user-info">
-          <h2>{{user.first_name}} {{user.last_name}}</h2>
+          <h1>{{user.first_name}} {{user.last_name}}</h1>
           <p>Registered At: {{user.created_at}}</p>
           <p>User ID: {{user.id}}</p>
           <p>Email: {{user.email}}</p>
-          <p>Description: {{user.description}}</p>
         </div>
-        <div id="comments">
+        <div>
           <h2>Leave a message for {{user.first_name}}</h2>
           <form action="/add_post/" method="post">
             {% csrf_token %}
@@ -36,17 +35,19 @@
             <p>{{p.user.first_name}} {{p.user.last_name}} wrote:</p>
             <p>{{p.post_text}}</p>
             <p>{{p.created_at}}</p>
-            {% for c in p.post_comments.all %}
-              <p>{{c.user.first_name}} {{p.user.last_name}} wrote:</p>
-              <p>{{c.comment_text}}</p>
-              <p>{{c.created_at}}</p>
-            {% endfor %}
-            <form action="/add_comment/" method="post">
-              {% csrf_token %}
-              <input type="text" name="comment_text">
-              <input type="hidden" name="post_id" value="{{p.id}}">
-              <button type="submit">Post</button>
-            </form>
+            <div id="comment">
+              {% for c in p.post_comments.all %}
+                <p>{{c.user.first_name}} {{p.user.last_name}} wrote:</p>
+                <p>{{c.comment_text}}</p>
+                <p>{{c.created_at}}</p>
+              {% endfor %}
+              <form action="/add_comment/" method="post">
+                {% csrf_token %}
+                  <input type="text" name="comment_text">
+                  <input type="hidden" name="post_id" value="{{p.id}}">
+                  <button type="submit">Post</button>
+              </form>
+            </div>
           {% endfor %}
         </div>
       </div>
